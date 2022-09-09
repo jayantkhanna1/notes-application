@@ -1,0 +1,22 @@
+body{
+    background-color: #2a2a2a !important;
+}
+#important{
+    background-color: #e87c3a !important;
+}
+.card_heading,.tagline{
+    background-color: #f86807 !important;
+}
+.card_content{
+    color: #e97d40 !important;
+    background-color: #373737;
+}
+.card{
+    background-color: #373737;
+}
+.background{
+    box-shadow: 2px 2px 20px 2px rgb(42 39 39) !important;
+}
+#right a {
+    color: white;
+}
