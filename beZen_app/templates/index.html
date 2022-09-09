@@ -1,0 +1,81 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Meta tags -->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Title -->
+    <title>Document</title>
+
+    <!-- Local Styling -->
+    <link rel="stylesheet" href="{%static 'css/index.css'%}">
+
+    <!-- Font Awesome -->
+    <script src="https://kit.fontawesome.com/ec7d8e2d79.js" crossorigin="anonymous"></script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@300;400&display=swap" rel="stylesheet">
+
+</head>
+<body>
+   <header>
+        <div id="left">
+            <img id="logo" src="{%static 'images/logo.jpg'%}" alt="">
+        </div>
+        <div id="center">
+            <input placeholder="Search your Notes" type="text">
+            <i id="maginifying" class="fa fa-magnifying-glass"></i>
+        </div>
+        <div id="right">
+            <a href=""><i class="fa fa-moon"></i></a>
+            <a href="">Login</a>
+            <a id="register" href="">Register</a>
+   </header>
+   <div id="new_note">
+        <i id="plus" class="fa fa-plus"></i>
+   </div>
+   <div id="important">
+        <p id="imp_heading">Important</p>
+        <div id="important_notes">
+            <div class="card">
+                <div class="card_heading">
+                    <p>Heading</p>
+                    <div class="options_background">
+                    <i class="fa fa-ellipsis-v"></i></div>
+                    
+                </div>
+                <div class="tagline">
+                    <p>Some tagline that is not longer than 10 words</p>
+                </div>
+                <div class="card_content">
+                    <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Suscipit dolore ad placeat quod aperiam voluptatem veniam officia dolores magni modi molestias aliquid iste aut fugit dignissimos odit ratione, ullam culpa eum optio maiores. Omnis, sunt commodi. Suscipit consequuntur, nesciunt asperiores quod omnis dicta adipisci quaerat unde fuga nostrum vero assumenda dolor harum. Omnis nisi, nihil illum quam autem exercitationem accusamus doloremque soluta sapiente voluptatem error dolor itaque officiis quaerat placeat maxime assumenda corrupti iure. A quod nihil doloremque quibusdam iure explicabo numquam aspernatur alias ea ipsam illum hic ducimus similique excepturi vitae omnis dicta quia, voluptates sunt atque asperiores inventore!   Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quae.</p>
+                </div>
+                
+            </div>
+        </div>
+   </div>
+   <div id="notes">
+    <div class="card background">
+        <div class="card_heading">
+            <p>Heading</p>
+            <div class="options_background">
+            <i class="fa fa-ellipsis-v"></i></div>
+            
+        </div>
+        <div class="tagline">
+            <p>Some tagline that is not longer than 10 words</p>
+        </div>
+        <div class="card_content">
+            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Suscipit dolore ad placeat quod aperiam voluptatem veniam officia dolores magni modi molestias aliquid iste aut fugit dignissimos odit ratione, ullam culpa eum optio maiores. Omnis, sunt commodi. Suscipit consequuntur, nesciunt asperiores quod omnis dicta adipisci quaerat unde fuga nostrum vero assumenda dolor harum. Omnis nisi, nihil illum quam autem exercitationem accusamus doloremque soluta sapiente voluptatem error dolor itaque officiis quaerat placeat maxime assumenda corrupti iure. A quod nihil doloremque quibusdam iure explicabo numquam aspernatur alias ea ipsam illum hic ducimus similique excepturi vitae omnis dicta quia, voluptates sunt atque asperiores inventore!   Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quae.</p>
+        </div>
+        
+    </div>
+ 
+   </div>
+</body>
+</html>
