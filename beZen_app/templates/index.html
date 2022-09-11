@@ -52,7 +52,7 @@
                 <div class="tagline">
                     <p>Some tagline that is not longer than 10 words</p>
                 </div>
-                <div class="card_content">
+                <div  onclick="open_note_modal()" class="card_content">
                     <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Suscipit dolore ad placeat quod aperiam voluptatem veniam officia dolores magni modi molestias aliquid iste aut fugit dignissimos odit ratione, ullam culpa eum optio maiores. Omnis, sunt commodi. Suscipit consequuntur, nesciunt asperiores quod omnis dicta adipisci quaerat unde fuga nostrum vero assumenda dolor harum. Omnis nisi, nihil illum quam autem exercitationem accusamus doloremque soluta sapiente voluptatem error dolor itaque officiis quaerat placeat maxime assumenda corrupti iure. A quod nihil doloremque quibusdam iure explicabo numquam aspernatur alias ea ipsam illum hic ducimus similique excepturi vitae omnis dicta quia, voluptates sunt atque asperiores inventore!   Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quae.</p>
                 </div>
                 
@@ -60,34 +60,84 @@
         </div>
    </div>
    <div id="notes">
+        {% for x in notes %}
         <div class="card background">
             <div class="card_heading">
-                <p>Heading</p>
+                <p>{{x.heading}}</p>
                 <div class="options_background">
                 <i class="fa fa-ellipsis-v"></i></div>
                 
             </div>
             <div class="tagline">
-                <p>Some tagline that is not longer than 10 words</p>
+                <p>{{x.tagline}}</p>
             </div>
-            <div class="card_content">
-                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Suscipit dolore ad placeat quod aperiam voluptatem veniam officia dolores magni modi molestias aliquid iste aut fugit dignissimos odit ratione, ullam culpa eum optio maiores. Omnis, sunt commodi. Suscipit consequuntur, nesciunt asperiores quod omnis dicta adipisci quaerat unde fuga nostrum vero assumenda dolor harum. Omnis nisi, nihil illum quam autem exercitationem accusamus doloremque soluta sapiente voluptatem error dolor itaque officiis quaerat placeat maxime assumenda corrupti iure. A quod nihil doloremque quibusdam iure explicabo numquam aspernatur alias ea ipsam illum hic ducimus similique excepturi vitae omnis dicta quia, voluptates sunt atque asperiores inventore!   Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quae.</p>
+            <div  onclick="open_note_modal(heading = '{{x.heading}}' , tagline = '{{x.tagline}}' , content = heading = '{{x.content}}' , id = '{{x.id}}')" class="card_content">
+                <p>{{x.content}}</p>
             </div>
             
         </div>
+        {%endfor%}
  
    </div>
 
+   <div id="open_note_modal">
+    <div class="modal-content">
+        <div class="modal-header">
+        <span class="close">&times;</span>
+        &nbsp;
+        </div>
+        <div class="modal-body">
+            <h2>Update Note</h2>
+            <form action="">
+                <div class="user-box">
+                    <input type="text" name="idd" required="">
+                    <label>Heading</label>
+                </div>
+
+                <div class="user-box">
+                    <input type="text" name="idd" required="">
+                    <label>Tagline</label>
+                </div>
+
+                <div class="user-box">
+                    <textarea name="" id="" cols="30" rows="10"></textarea>
+                    <label>Text</label>
+                </div>
+                <div id="submit_div">
+                    <input type="submit" id="submit_button" value="Update">
+                </div>
+            </form>
+        </div>
+    </div>
+   </div>
+
    <div id="new_note_modal">
-     <!-- Modal content -->
         <div class="modal-content">
             <div class="modal-header">
             <span class="close">&times;</span>
             &nbsp;
             </div>
             <div class="modal-body">
-                <form action="">
-                    
+                <h2>New Note</h2>
+                <form action="addNewNote" method="POST" enctype="multipart/form-data">
+                    {%csrf_token%}
+                    <div class="user-box">
+                        <input type="text" name="heading" required="">
+                        <label>Heading</label>
+                    </div>
+
+                    <div class="user-box">
+                        <input type="text" name="tagline" required="">
+                        <label>Tagline</label>
+                    </div>
+
+                    <div class="user-box">
+                        <textarea name="content" id="" cols="30" rows="10"></textarea>
+                        <label>Text</label>
+                    </div>
+                    <div id="submit_div">
+                        <input type="submit" id="submit_button" value="Create">
+                    </div>
                 </form>
             </div>
         </div>
@@ -95,6 +145,7 @@
    <script>
         var modal = document.getElementById("new_note_modal");
         function open_new_note_modal(){
+            
             modal.style.display = "block";
         }
         var span = document.getElementsByClassName("close")[0];
@@ -131,6 +182,23 @@
             document.getElementById("sun").style.display = "none";
          }
    </script>
+    <script>
+        var modal1 = document.getElementById("open_note_modal");
+        function open_note_modal(){
+            modal1.style.display = "block";
+        }
+        var span = document.getElementsByClassName("close")[0];
+        // When the user clicks on <span> (x), close the modal
+        span.onclick = function() {
+        modal1.style.display = "none";
+        }
 
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function(event) {
+        if (event.target == modal1) {
+            modal1.style.display = "none";
+        }
+        }
+    </script>
 </body>
 </html>

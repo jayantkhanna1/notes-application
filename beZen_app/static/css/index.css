@@ -3,6 +3,10 @@
     margin: 0;
     font-family: 'Roboto Slab', serif;
 }
+body{
+    
+    padding-bottom: 20px;
+}
 header{
     padding-top: 25px !important;
     display: flex;
@@ -160,11 +164,11 @@ header{
 }
 
 /* The Modal (background) */
-#new_note_modal {
+#new_note_modal,#open_note_modal {
     display: none; /* Hidden by default */
     position: fixed; /* Stay in place */
     z-index: 1; /* Sit on top */
-    padding-top: 100px; /* Location of the box */
+    padding-top: 50px; /* Location of the box */
     left: 0;
     top: 0;
     width: 100%; /* Full width */
@@ -224,6 +228,72 @@ header{
   .modal-body {padding: 2px 16px;}
   
   
-  #new_note_modal{
+  #new_note_modal,#open_note_modal{
     display:none;
   }
+
+
+.modal-body{
+    padding-top: 35px;
+}
+
+.user-box {
+    position: relative;
+}
+.user-box input,.user-box textarea{
+    width: 100%;
+    padding: 10px 0;
+    font-size: 16px;
+    color: black;
+    margin-bottom: 30px;
+    border: none;
+    border-bottom: 1px solid black;
+    outline: none;
+    background: transparent;
+}
+
+.user-box label {
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 10px 0;
+    font-size: 16px;
+    color: black;
+    pointer-events: none;
+    transition: .5s;
+}
+
+.user-box input:focus~label,
+.user-box input:valid~label,.user-box textarea:focus~label,.user-box textarea:valid~label {
+    top: -20px;
+    left: 0;
+    color: #e97d40;
+    font-size: 12px;
+}
+.user-box input:focus,.user-box input:valid,.user-box textarea:focus,.user-box textarea:valid{
+    border-bottom: 1px solid #e97d40;
+}
+textarea{
+    resize: vertical;
+}
+.modal-body h2{
+    margin-bottom: 20px;
+    font-weight: 500;
+}
+#submit_div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#submit_button{
+    
+    background-color: #e97d40;
+    color: white;
+    border: none;
+    outline: none;
+    padding: 10px 40px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 20px;
+    margin-bottom: px;
+}
