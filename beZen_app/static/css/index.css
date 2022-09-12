@@ -3,6 +3,9 @@
     margin: 0;
     font-family: 'Roboto Slab', serif;
 }
+#for_mobile{
+    display: none;
+}
 body{
     
     padding-bottom: 20px;
@@ -131,6 +134,7 @@ header{
     font-size: 25px;
 }
 .card{
+    height:200px ;
     background-color: white;
     border-radius: 10px;
     width: 300px;
@@ -138,9 +142,8 @@ header{
     margin-top: 25px;
     display: flex;
     flex-direction: column;
-    align-items: left;
     padding-bottom: 25px;
-    justify-content: center;
+    position: relative;
 }
 .card_content{
     padding: 15px;
@@ -296,4 +299,118 @@ textarea{
     cursor: pointer;
     margin-top: 20px;
     margin-bottom: px;
+}
+.option_pane{
+    z-index: 200;
+    position: absolute;
+    top: 20px;
+    right: -80px;
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 2px 2px 20px 2px rgb(183, 183, 183);
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 25px;
+}
+.option_pane a{
+    text-decoration: none;
+    color: black;
+    font-size: 15px;
+    margin-bottom: 5px;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+.option_pane a:hover{
+    color: #e97d40;
+}
+
+@media screen and (max-width: 780px) {
+    #for_laptop{
+        display: none !important;
+    }
+    #for_mobile{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+    #bottom{
+        position: relative;
+    }
+    #bottom input {
+        width: 350px;
+        margin-bottom: 40px;
+        margin-top: 40px;
+        padding-right: 15px;
+        padding-left: 40px;
+        height: 53px;
+        border: none;
+        outline: none;
+        border-radius: 8px;
+        background-color: rgb(244, 244, 244);
+    }
+    #maginifying{
+        position: absolute;
+        top: 57px;
+        font-size: 20px;
+        color: rgb(216, 216, 216);
+        left: 15px;
+    }
+    #top{
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .overlay {
+        height: 100%;
+        width: 0;
+        position: fixed;
+        z-index: 1;
+        top: 0;
+        left: 0;
+        background-color: #ffc3a0;
+        background-color: #ffc3a0;
+        overflow-x: hidden;
+        transition: 0.5s;
+      }
+      
+      .overlay-content {
+        position: relative;
+        top: 25%;
+        width: 100%;
+        text-align: center;
+        margin-top: 30px;
+      }
+      
+      .overlay a {
+        padding: 8px;
+        text-decoration: none;
+        font-size: 36px;
+        color: #ffffff;
+        display: block;
+        transition: 0.3s;
+      }
+      
+      .overlay a:hover, .overlay a:focus {
+        color: #f1f1f1;
+      }
+      
+      .overlay .closebtn {
+        position: absolute;
+        top: 20px;
+        right: 45px;
+        font-size: 60px;
+      }
+      
+      @media screen and (max-height: 450px) {
+        .overlay a {font-size: 20px}
+        .overlay .closebtn {
+        font-size: 40px;
+        top: 15px;
+        right: 35px;
+        }
+      }
 }

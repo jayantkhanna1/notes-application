@@ -20,14 +20,17 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@300;400&display=swap" rel="stylesheet">
+
+    <!-- Jquery CDN -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>
-   <header>
+   <header id="for_laptop">
         <div id="left">
             <img id="logo" src="{%static 'images/logo.jpg'%}" alt="">
         </div>
         <div id="center">
-            <input placeholder="Search your Notes" type="text">
+            <input id="searchbar" placeholder="Search your Notes" type="text">
             <i id="maginifying" class="fa fa-magnifying-glass"></i>
         </div>
         <div id="right">
@@ -36,42 +39,82 @@
             <a href="">Login</a>
             <a id="register" href="">Register</a>
    </header>
+
+   <header id="for_mobile">
+    <div id="top">
+        <div id="left">
+            <img id="logo" src="{%static 'images/logo.jpg'%}" alt="">
+        </div>
+        <div  id="right">
+            <i id="open_mob_menu" onclick="open_mobile_menu()" class="fa fa-bars"></i>
+        </div>
+    </div>
+    <div id="bottom">
+        <input id="searchbar" placeholder="Search your Notes" type="text">
+        <i id="maginifying" class="fa fa-magnifying-glass"></i>
+    </div>
+   </header>
+
+   <div id="mobile_menu"  class="overlay">
+    <!-- Button to close the overlay navigation -->
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+
+    <!-- Overlay content -->
+    <div class="overlay-content">
+        <a id="moon_for_mob" onclick="dark_mode_on()" href="javascript:void(0)"><i class="fa fa-moon"></i></a>
+        <a id="sun_for_mob" onclick="dark_mode_off()" style="display: none;" href="javascript:void(0)"> <i class="fa fa-sun"></i></a>
+        <a href="">Login</a>
+        <a href="">Register</a>
+    </div>
+   </div>
+
    <div onclick="open_new_note_modal()" id="new_note">
         <i id="plus" class="fa fa-plus"></i>
    </div>
    <div id="important">
         <p id="imp_heading">Important</p>
         <div id="important_notes">
+            {% for x in important %}
             <div class="card">
+                <div class="option_pane" id="optionpane_imp_{{x.id}}">
+                    <a href="unpin?id={{x.id}}">Unpin</a>
+                    <a href="delete?id={{x.id}}">Delete</a>
+                </div>
                 <div class="card_heading">
-                    <p>Heading</p>
-                    <div class="options_background">
+                    <p>{{x.heading}}</p>
+                    <div onclick="open_options_pane(id = 'optionpane_imp_{{x.id}}')" class="options_background">
                     <i class="fa fa-ellipsis-v"></i></div>
                     
                 </div>
                 <div class="tagline">
-                    <p>Some tagline that is not longer than 10 words</p>
+                    <p>{{x.tagline}}</p>
                 </div>
-                <div  onclick="open_note_modal()" class="card_content">
-                    <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Suscipit dolore ad placeat quod aperiam voluptatem veniam officia dolores magni modi molestias aliquid iste aut fugit dignissimos odit ratione, ullam culpa eum optio maiores. Omnis, sunt commodi. Suscipit consequuntur, nesciunt asperiores quod omnis dicta adipisci quaerat unde fuga nostrum vero assumenda dolor harum. Omnis nisi, nihil illum quam autem exercitationem accusamus doloremque soluta sapiente voluptatem error dolor itaque officiis quaerat placeat maxime assumenda corrupti iure. A quod nihil doloremque quibusdam iure explicabo numquam aspernatur alias ea ipsam illum hic ducimus similique excepturi vitae omnis dicta quia, voluptates sunt atque asperiores inventore!   Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quae.</p>
+                <div  onclick="open_note_modal(heading = '{{x.heading}}' , tagline = '{{x.tagline}}' , content = '{{x.content}}' , id = '{{x.id}}')" class="card_content">
+                    <p>{{x.content}}</p>
                 </div>
                 
             </div>
+            {%endfor%}
         </div>
    </div>
    <div id="notes">
         {% for x in notes %}
         <div class="card background">
+            <div class="option_pane" id="optionpane_{{x.id}}">
+                <a href="pin?id={{x.id}}">Pin</a>
+                <a href="delete?id={{x.id}}">Delete</a>
+            </div>
             <div class="card_heading">
                 <p>{{x.heading}}</p>
-                <div class="options_background">
-                <i class="fa fa-ellipsis-v"></i></div>
+                <div onclick="open_imp_options_pane(id = 'optionpane_{{x.id}}')" class="options_background">
+                    <i class="fa fa-ellipsis-v"></i>
+                </div>
                 
             </div>
             <div class="tagline">
                 <p>{{x.tagline}}</p>
             </div>
-            <div  onclick="open_note_modal(heading = '{{x.heading}}' , tagline = '{{x.tagline}}' , content = heading = '{{x.content}}' , id = '{{x.id}}')" class="card_content">
+            <div onclick="open_note_modal(heading = '{{x.heading}}' , tagline = '{{x.tagline}}' , content = '{{x.content}}' , id = '{{x.id}}')" class="card_content">
                 <p>{{x.content}}</p>
             </div>
             
@@ -88,19 +131,21 @@
         </div>
         <div class="modal-body">
             <h2>Update Note</h2>
-            <form action="">
+            <form action="updateNote" method="POST" enctype="multipart/form-data">
+                {%csrf_token%}
+                <input name="id" type="text" style="visibility: hidden;" required readonly id="id">
                 <div class="user-box">
-                    <input type="text" name="idd" required="">
+                    <input type="text" id="heading" name="heading" required="">
                     <label>Heading</label>
                 </div>
 
                 <div class="user-box">
-                    <input type="text" name="idd" required="">
+                    <input type="text" id="tagline" name="tagline" required="">
                     <label>Tagline</label>
                 </div>
 
                 <div class="user-box">
-                    <textarea name="" id="" cols="30" rows="10"></textarea>
+                    <textarea name="content" id="content" cols="30" rows="10"></textarea>
                     <label>Text</label>
                 </div>
                 <div id="submit_div">
@@ -114,7 +159,7 @@
    <div id="new_note_modal">
         <div class="modal-content">
             <div class="modal-header">
-            <span class="close">&times;</span>
+            <span class="closenew close">&times;</span>
             &nbsp;
             </div>
             <div class="modal-body">
@@ -132,7 +177,7 @@
                     </div>
 
                     <div class="user-box">
-                        <textarea name="content" id="" cols="30" rows="10"></textarea>
+                        <textarea name="content" id="content" cols="30" rows="10"></textarea>
                         <label>Text</label>
                     </div>
                     <div id="submit_div">
@@ -142,25 +187,47 @@
             </div>
         </div>
    </div>
+
+   <!-- For opening all option panes -->
+   <script>
+        function open_options_pane(id){
+            var x = document.getElementById(id);
+            if(x.style.display == "flex"){
+                x.style.display = "none";
+            }
+            else{
+                x.style.display = "flex";
+            }
+        }
+        function open_imp_options_pane(id){
+            var x = document.getElementById(id);
+            if(x.style.display == "flex"){
+                x.style.display = "none";
+            }
+            else{
+                x.style.display = "flex";
+            }
+        }
+        
+   </script>
+
+    <!-- For opening new note modal -->
    <script>
         var modal = document.getElementById("new_note_modal");
         function open_new_note_modal(){
             
             modal.style.display = "block";
         }
-        var span = document.getElementsByClassName("close")[0];
+        var span = document.getElementsByClassName("closenew")[0];
         // When the user clicks on <span> (x), close the modal
         span.onclick = function() {
         modal.style.display = "none";
         }
 
-        // When the user clicks anywhere outside of the modal, close it
-        window.onclick = function(event) {
-        if (event.target == modal) {
-            modal.style.display = "none";
-        }
-        }
+        
    </script>
+
+   <!-- For dark mode -->
    <script>
     var link
          function dark_mode_on(){
@@ -172,20 +239,27 @@
 
             link.href = "{% static 'css/dark_mode.css' %}";
             head.appendChild(link);
-            document.getElementById("moon").style.display = "none";
-            document.getElementById("sun").style.display = "inline-block";
+            document.getElementById("moon_for_mob").style.display = "none";
+            document.getElementById("sun_for_mob").style.display = "inline-block";
          }
          function dark_mode_off(){
             var head = document.getElementsByTagName('HEAD')[0];
             head.removeChild(link);
-            document.getElementById("moon").style.display = "inline-block";
-            document.getElementById("sun").style.display = "none";
+            document.getElementById("moon_for_mob").style.display = "inline-block";
+            document.getElementById("sun_for_mob").style.display = "none";
          }
    </script>
+
+   <!-- For opening edit modal and closing all modals -->
     <script>
         var modal1 = document.getElementById("open_note_modal");
-        function open_note_modal(){
+        function open_note_modal(heading,tagline,content,id){
             modal1.style.display = "block";
+            document.getElementById("heading").value = heading;
+            document.getElementById("tagline").value = tagline;
+            document.getElementById("content").value = content;
+            document.getElementById("id").value = id;
+            console.log(document.getElementById("id").value)
         }
         var span = document.getElementsByClassName("close")[0];
         // When the user clicks on <span> (x), close the modal
@@ -195,10 +269,44 @@
 
         // When the user clicks anywhere outside of the modal, close it
         window.onclick = function(event) {
-        if (event.target == modal1) {
-            modal1.style.display = "none";
-        }
+
+            
+            // Closing edit modal
+            if (event.target == modal1) {
+                modal1.style.display = "none";
+                
+            }
+
+            //Closing new note modal
+            var modal = document.getElementById("new_note_modal");
+            var for_closing = document.getElementById("new_note_model");
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
         }
     </script>
+
+    <!-- For search feature -->
+    <script>
+        $(document).ready(function(){
+        $("#searchbar").on("keyup", function() {
+            var value = $(this).val().toLowerCase();
+            $("#notes .card").filter(function() {
+            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+        });
+    </script>
+
+    <!-- Open mobile menu -->
+    <script>
+        function open_mobile_menu() {
+          document.getElementById("mobile_menu").style.width = "100%";
+        }
+        
+        function closeNav() {
+          document.getElementById("mobile_menu").style.width = "0%";
+        }
+        </script>
 </body>
 </html>

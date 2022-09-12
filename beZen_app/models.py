@@ -8,4 +8,4 @@ class Note(models.Model):
     content = models.TextField()
     created = models.DateTimeField()
     lastUpdated = models.DateTimeField()
-
+    important = models.BooleanField(default=False)
