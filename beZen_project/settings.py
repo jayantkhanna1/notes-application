@@ -56,7 +56,7 @@ import os
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR,'techgridApp/templates')],
+        'DIRS': [os.path.join(BASE_DIR,'beZen_app/templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
