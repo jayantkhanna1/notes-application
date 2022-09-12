@@ -1,0 +1,1 @@
+web: gunicorn beZen_project.wsgi
