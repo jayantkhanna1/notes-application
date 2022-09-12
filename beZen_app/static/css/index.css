@@ -3,7 +3,7 @@
     margin: 0;
     font-family: 'Roboto Slab', serif;
 }
-#for_mobile{
+#for_mobile,#mobile_menu{
     display: none;
 }
 body{
@@ -327,6 +327,9 @@ textarea{
 }
 
 @media screen and (max-width: 780px) {
+    #mobile_menu{
+        display: block;
+    }
     #for_laptop{
         display: none !important;
     }

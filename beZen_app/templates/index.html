@@ -89,7 +89,7 @@
                 <div class="tagline">
                     <p>{{x.tagline}}</p>
                 </div>
-                <div  onclick="open_note_modal(heading = '{{x.heading}}' , tagline = '{{x.tagline}}' , content = '{{x.content}}' , id = '{{x.id}}')" class="card_content">
+                <div onclick="open_note_modal(heading = '{{x.heading}}',tagline = '{{x.tagline}}',content = '{{x.content}}',id='{{x.id}}')" class="card_content">
                     <p>{{x.content}}</p>
                 </div>
                 
@@ -97,6 +97,7 @@
             {%endfor%}
         </div>
    </div>
+   
    <div id="notes">
         {% for x in notes %}
         <div class="card background">
@@ -229,7 +230,18 @@
 
    <!-- For dark mode -->
    <script>
-    var link
+    var link;
+    var data = localStorage.getItem("darkmode");
+    if(data == "on"){
+        link = document.createElement("link");
+        link.rel = "stylesheet";
+        link.href = "/static/css/dark_mode.css";
+        document.head.appendChild(link);
+        document.getElementById("sun").style.display = "inline-block";
+        document.getElementById("moon").style.display = "none";
+        document.getElementById("moon_for_mob").style.display = "none";
+        document.getElementById("sun_for_mob").style.display = "inline-block";
+    }
          function dark_mode_on(){
             var head = document.getElementsByTagName('HEAD')[0];
             link = document.createElement('link');
@@ -237,14 +249,21 @@
 
             link.type = 'text/css';
 
-            link.href = "{% static 'css/dark_mode.css' %}";
+            link.href = "/static/css/dark_mode.css";
             head.appendChild(link);
+            localStorage.setItem("darkmode", "on");
+            document.getElementById("sun").style.display = "none";
+            document.getElementById("moon").style.display = "inline-block";
             document.getElementById("moon_for_mob").style.display = "none";
             document.getElementById("sun_for_mob").style.display = "inline-block";
          }
          function dark_mode_off(){
+            
             var head = document.getElementsByTagName('HEAD')[0];
             head.removeChild(link);
+            localStorage.setItem("darkmode", "off");
+            document.getElementById("sun").style.display = "none";
+            document.getElementById("moon").style.display = "inline-block";
             document.getElementById("moon_for_mob").style.display = "inline-block";
             document.getElementById("sun_for_mob").style.display = "none";
          }
@@ -254,15 +273,14 @@
     <script>
         var modal1 = document.getElementById("open_note_modal");
         function open_note_modal(heading,tagline,content,id){
+            console.log("hi");
             modal1.style.display = "block";
             document.getElementById("heading").value = heading;
             document.getElementById("tagline").value = tagline;
             document.getElementById("content").value = content;
             document.getElementById("id").value = id;
-            console.log(document.getElementById("id").value)
         }
         var span = document.getElementsByClassName("close")[0];
-        // When the user clicks on <span> (x), close the modal
         span.onclick = function() {
         modal1.style.display = "none";
         }

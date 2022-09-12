@@ -1,3 +1,14 @@
+   .overlay{
+        background-color: #2a2a2a !important;
+    }
+    .overlay a{
+        color:#e97d40 !important;
+    }
+    #open_mob_menu{
+        color: white !important;
+    }
+
+
 body{
     background-color: #2a2a2a !important;
 }
@@ -20,12 +31,4 @@ body{
 #right a {
     color: white;
 }
-.overlay{
-    background-color: #2a2a2a !important;
-}
-.overlay a{
-    color:#e97d40 !important;
-}
-#open_mob_menu{
-    color: white !important;
-}
+
